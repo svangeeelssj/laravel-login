@@ -27,18 +27,48 @@
             font-size: 18px;
             margin: 10px 0;
         }
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            margin-top: 10px;
+            border-radius: 5px;
+            background-color: #007BFF;
+            color: white;
+            text-decoration: none;
+        }
     </style>
 </head>
 <body>
     <h1>Listado de Cursos</h1>
+    <a href="#" class="btn">Carrito</a>
 
-    @foreach($datos_curso as $curso)
+<!-- Muestra el carrito -->
+@if (!empty($carrito))
+    <h2>Carrito</h2>
+    @foreach($carrito as $curso)
         <div class="curso-card">
             <img src="data:image/jpeg;base64,{{ base64_encode($curso->ImgC) }}" alt="Imagen del curso">
-            <h2>{{ $curso->Curso }}</h2>
-            <p>Duración: {{ $curso->Duracion }}</p>
-            <p>Capacitador: {{ $curso->apep_cap }} {{ $curso->apem_cap }}</p>
+            <h3>{{ $curso->Curso }}</h3>
+            <p>Precio: ${{ $curso->categoria }}</p>
         </div>
     @endforeach
+@else
+    <p>El carrito está vacío.</p>
+@endif
+
+<!-- Muestra los cursos -->
+@foreach($datos_curso as $curso)
+    <div class="curso-card">
+        <img src="data:image/jpeg;base64,{{ base64_encode($curso->ImgC) }}" alt="Imagen del curso">
+        <h2>{{ $curso->Curso }}</h2>
+        <p>Duración: {{ $curso->Duracion }}</p>
+        <p>Capacitador: {{ $curso->apep_cap }} {{ $curso->apem_cap }}</p>
+        <p>Precio ${{ $curso->categoria }}</p>
+        <a href="{{ url('/agregar_al_carrito/' . $curso->ID_Cursos) }}" class="btn">Comprar</a>
+    </div>
+@endforeach
+
+
 </body>
 </html>
+

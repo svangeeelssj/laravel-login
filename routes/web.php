@@ -33,6 +33,12 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::get('/obtener-cursos', [DatosCursoController::class, 'obtenerCursos']);
+Route::get('/carrito', 'DatosCursoController@verCarrito')->name('carrito');
+Route::get('/eliminar_del_carrito/{id}', [DatosCursoController::class, 'eliminarDelCarrito']);
+Route::get('/agregar_al_carrito', [DatosCursoController::class, 'verCarrito']);
+Route::get('/agregar_al_carrito/{id}', [DatosCursoController::class, 'agregarAlCarrito']);
+
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
